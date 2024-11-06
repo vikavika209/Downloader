@@ -2,8 +2,9 @@ import java.io.*;
 import java.time.LocalDateTime;
 
 public class MyFile {
-    public void crateTextFile(File file, String filePath) {
+    public void createTextFile(String filePath) {
         try {
+            File file = new File(filePath);
             boolean created = file.createNewFile();
             if (created) {
                 System.out.println("Файл успешно создан." +
@@ -16,12 +17,13 @@ public class MyFile {
 
     }
 
-    public void addTextToTheFile(File file, String filePath, String text) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
-                    new FileOutputStream(filePath));
-            outputStreamWriter.write(text);
-            outputStreamWriter.close();
+    public void addTextToTheFile(File file, String text) {
+        try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
+                new FileOutputStream(file))) {
+            boolean ifExist = file.exists();
+            if (ifExist) {
+                outputStreamWriter.write(text);
+            }
         } catch (Exception e) {
             System.out.println("Ошибка записи в файл.");
         }
@@ -35,8 +37,7 @@ public class MyFile {
         if (searchFile.isDirectory()) {
             System.out.println("Не указано имя искомого файла");
         } else {
-            try {
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)))) {
                 String s = bufferedReader.readLine();
                 System.out.println(s);
             } catch (Exception e) {

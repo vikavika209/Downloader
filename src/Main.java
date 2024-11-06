@@ -1,6 +1,4 @@
 import java.io.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -26,9 +24,9 @@ public class Main {
                             String s2 = strings[1];
                             String filePath = s2 + "\\" + s1;
                             File file = new File(filePath);
-                            myFile.crateTextFile(file, file.getPath());
+                            myFile.createTextFile(file.getPath());
                             System.out.println("Ведите текст, который хотите записать в файл");
-                            myFile.addTextToTheFile(file, file.getPath(), scanner.nextLine());
+                            myFile.addTextToTheFile(file, scanner.nextLine());
                         }
 
                         case "2" -> {
